@@ -1,0 +1,25 @@
+services:
+  rental-prediction-api:
+    build: .
+    container_name: rental-prediction-api
+    ports:
+      - "8000:8000"
+    environment:
+      - DEBUG=false
+      - LOG_LEVEL=INFO
+    volumes:
+      # Mount the trained model directory to ensure the model is available
+      - ./trained_model:/app/trained_model:ro
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - rental-api-network
+
+networks:
+  rental-api-network:
+    driver: bridge
