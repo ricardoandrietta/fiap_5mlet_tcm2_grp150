@@ -237,7 +237,6 @@ $RECYCLE.BIN/
 .nfs*
 
 # Machine Learning specific
-*.pkl
 *.joblib
 *.h5
 *.hdf5
@@ -290,7 +289,6 @@ config.json
 
 # Model artifacts and checkpoints
 checkpoints/
-models/
 artifacts/
 experiments/
 
