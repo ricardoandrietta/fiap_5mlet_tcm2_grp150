@@ -12,7 +12,6 @@ from core.config import (
     MODEL_PATH, EXPECTED_FEATURES, DEFAULT_VALUES, 
     CATEGORICAL_COLUMNS, ORIGINAL_TRAINING_COLUMNS
 )
-from core.utils import get_coordinates
 
 
 class MLService:
@@ -54,8 +53,9 @@ class MLService:
         Returns:
             Preprocessed DataFrame ready for prediction
         """
-        # Get coordinates for the city/state
-        longitude, latitude = get_coordinates(request_data['city'], request_data['state'])
+        # Use provided coordinates directly
+        longitude = request_data['longitude']
+        latitude = request_data['latitude']
         
         # Create DataFrame with the input data
         new_data_sample = pd.DataFrame({

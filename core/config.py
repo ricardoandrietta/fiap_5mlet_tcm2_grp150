@@ -13,8 +13,8 @@ API_HOST = "0.0.0.0"
 API_PORT = 8000
 
 # Model Configuration
-MODEL_PATH = Path("trained_model/random_forest_rental_price_model.pkl")
-EXPECTED_FEATURES = 142
+MODEL_PATH = Path("trained_model/random_forest_rental_price_model_v1_31.pkl")
+EXPECTED_FEATURES = 165
 
 # Default Coordinates (Vancouver, BC)
 DEFAULT_LONGITUDE = -123.1207

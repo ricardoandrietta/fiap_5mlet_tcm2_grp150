@@ -54,9 +54,41 @@ def test_api():
     
     print()
     
-    # Test 3: Prediction endpoint
-    print("3. Testing prediction endpoint...")
+    # Test 3: Login to get authentication token
+    print("3. Testing login endpoint...")
+    login_data = {
+        "username": "fiap",
+        "password": "fiap123"
+    }
+    
+    access_token = None
+    try:
+        response = requests.post(
+            f"{base_url}/login",
+            json=login_data,
+            headers={"Content-Type": "application/json"}
+        )
+        
+        if response.status_code == 200:
+            result = response.json()
+            access_token = result['access_token']
+            print("✅ Login endpoint passed")
+            print(f"   Token received: {access_token[:20]}...")
+        else:
+            print(f"❌ Login endpoint failed: {response.status_code}")
+            print(f"   Error: {response.text}")
+            return
+    except Exception as e:
+        print(f"❌ Login endpoint error: {e}")
+        return
+    
+    print()
+    
+    # Test 4: Prediction endpoint
+    print("4. Testing prediction endpoint...")
     test_data = {
+        "longitude": -79.416300,
+        "latitude": 43.700110,
         "city": "vancouver",
         "state": "BC",
         "building_type": "highrise",
@@ -75,7 +107,10 @@ def test_api():
         response = requests.post(
             f"{base_url}/predict",
             json=test_data,
-            headers={"Content-Type": "application/json"}
+            headers={
+                "Content-Type": "application/json",
+                "Authorization": f"Bearer {access_token}"
+            }
         )
         
         if response.status_code == 200:
@@ -91,9 +126,11 @@ def test_api():
     
     print()
     
-    # Test 4: Invalid input
-    print("4. Testing invalid input...")
+    # Test 5: Invalid input
+    print("5. Testing invalid input...")
     invalid_data = {
+        "longitude": -79.416300,
+        "latitude": 43.700110,
         "city": "vancouver",
         "state": "BC",
         "building_type": "highrise",
@@ -112,7 +149,10 @@ def test_api():
         response = requests.post(
             f"{base_url}/predict",
             json=invalid_data,
-            headers={"Content-Type": "application/json"}
+            headers={
+                "Content-Type": "application/json",
+                "Authorization": f"Bearer {access_token}"
+            }
         )
         
         if response.status_code == 422:  # Validation error

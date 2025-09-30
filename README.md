@@ -73,7 +73,7 @@ Password: fiap123
    curl -X POST "http://localhost:8000/predict" \
         -H "Authorization: Bearer <your_token>" \
         -H "Content-Type: application/json" \
-        -d '{"city": "vancouver", "state": "BC", "building_type": "highrise", "bedrooms": 2, "bathrooms": 2, "size": 700, "allow_pets": true, "allow_smoking": false, "furnished": false, "count_private_parking": 1, "lease_type": "long_term", "rental_type": "long_term"}'
+        -d '{"longitude": -79.416300, "latitude": 43.700110, "city": "vancouver", "state": "BC", "building_type": "highrise", "bedrooms": 2, "bathrooms": 2, "size": 700, "allow_pets": true, "allow_smoking": false, "furnished": false, "count_private_parking": 1, "lease_type": "long_term", "rental_type": "long_term"}'
    ```
 
 ## Authentication Details
@@ -255,6 +255,8 @@ The API uses JWT (JSON Web Token) based authentication. To access protected endp
 curl -X POST "http://localhost:8000/predict" \
      -H "Content-Type: application/json" \
      -d '{
+       "longitude": -79.416300,
+       "latitude": 43.700110,
        "city": "vancouver",
        "state": "BC",
        "building_type": "highrise",
@@ -277,6 +279,8 @@ import requests
 
 url = "http://localhost:8000/predict"
 data = {
+    "longitude": -79.416300,
+    "latitude": 43.700110,
     "city": "vancouver",
     "state": "BC",
     "building_type": "highrise",
@@ -300,6 +304,8 @@ print(f"Predicted price: ${result['predicted_price']:.2f}")
 
 | Parameter | Type | Description | Example |
 |-----------|------|-------------|---------|
+| `longitude` | float | Longitude coordinate | -79.416300 |
+| `latitude` | float | Latitude coordinate | 43.700110 |
 | `city` | string | City name | "vancouver" |
 | `state` | string | State abbreviation | "BC" |
 | `building_type` | string | Type of building | "highrise" |
@@ -319,6 +325,8 @@ print(f"Predicted price: ${result['predicted_price']:.2f}")
 {
   "predicted_price": 2500.50,
   "input_data": {
+    "longitude": -79.416300,
+    "latitude": 43.700110,
     "city": "vancouver",
     "state": "BC",
     "building_type": "highrise",
@@ -409,7 +417,7 @@ You can test the authentication functionality using the Swagger UI at http://loc
    curl -X POST "http://localhost:8000/predict" \
         -H "Authorization: Bearer <your_token>" \
         -H "Content-Type: application/json" \
-        -d '{"city": "vancouver", "state": "BC", "building_type": "highrise", "bedrooms": 2, "bathrooms": 2, "size": 700, "allow_pets": true, "allow_smoking": false, "furnished": false, "count_private_parking": 1, "lease_type": "long_term", "rental_type": "long_term"}'
+        -d '{"longitude": -79.416300, "latitude": 43.700110, "city": "vancouver", "state": "BC", "building_type": "highrise", "bedrooms": 2, "bathrooms": 2, "size": 700, "allow_pets": true, "allow_smoking": false, "furnished": false, "count_private_parking": 1, "lease_type": "long_term", "rental_type": "long_term"}'
    ```
 
 The test script will:
